@@ -1,86 +1,151 @@
-# DeepSeek Harness
+# 107 DeepSeek Harness 插件项目
 
 [English](README.md) | 中文
 
-DeepSeek Harness（`dsh`）是由 [DeepSeek AI](https://deepseek.com) 开发的开源 agent harness（智能体框架）。
+本仓库是可迁移的 DeepSeek Harness 源码检出，包含本地 Cordis 插件模板。
 
-它构建于**一切皆插件**的架构之上，由 [Cordis](https://github.com/cordiverse/cordis) 驱动，其设计参见论文 [_A Programming Paradigm for Spatiotemporal Composability_](https://arxiv.org/abs/2608.25512)。
+你可以在服务器上运行 Web UI 或无界面 agent，让每台部署独立保存凭据和会话，并以源码 overlay 方式开发工具。
 
-文档：[https://deepseek-harness.github.io/deepseek-harness/](https://deepseek-harness.github.io/deepseek-harness/)
+## 本仓库提供的内容
 
-## 开发者预览
-
-DeepSeek Harness 处于 _开发者预览_ 阶段，正在快速迭代。**未来将出现破坏兼容性的变更。**
-
-运行本项目前，请阅读[安全说明](SAFETY.zh.md)。
+- DeepSeek Harness（`dsh`）的源码构建。
+- 用于官方 DeepSeek API Key 的 `.env.example` 模板。
+- Bash 和 PowerShell 启动脚本；默认使用仓库内的 `.dsh/` 目录。
+- 可运行的 Cordis 工具插件模板 `plugins/hello-dsh-plugin`。
 
 <a id="run"></a>
 
-## 运行
+## 快速开始
 
-### 通过 `npm` 运行
+以下流程会使用官方 DeepSeek API Key 启动带 hello 插件的 Web UI。
 
-安装 `Node.js`，然后运行：
-
-```sh
-npx @deepseek-ai/dsh web
-```
-
-该命令默认会在 `http://127.0.0.1:3080` 启动 Web UI，本机启动时还会用默认浏览器打开页面。通过 SSH 启动时只打印宿主机 URL，因为本地转发地址由 SSH 客户端或编辑器持有。传入 `--no-open` 可仅运行服务器而不打开浏览器。详见 [Web UI 指南](docs/user/guide/index.zh.md)。
+### 1. 安装并构建
 
 <a id="run-from-source"></a>
 
-### 从源码运行
-
-如需从仓库源码运行：
+安装 Node.js 22.19 或更高版本并启用 Corepack，然后克隆并构建源码检出：
 
 ```sh
-git clone https://github.com/deepseek-ai/deepseek-harness.git
-cd deepseek-harness
-pnpm install
+git clone https://github.com/Spikeyin/107_DeepSeek_Harness_plugin.git
+cd 107_DeepSeek_Harness_plugin
+corepack enable
+pnpm install --frozen-lockfile
 pnpm run build
-pnpm dsh web
 ```
 
-`pnpm run build` 会准备仓库产物。`pnpm dsh web` 会直接使用这些已构建产物，不会重新构建。
+### 2. 配置 API Key
 
-如需使用 API key 模板、自定义网关示例和远程服务器访问说明进行隔离的源码部署，请参阅[可迁移部署](DEPLOYMENT.md)；该页顶部可切换至中文。
+复制凭据模板，并且不要提交生成的 `.env` 文件：
 
-## 社区与支持
+```sh
+cp .env.example .env
+```
 
-- 通过 [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions) 提交反馈或 bug 报告。
-- 为你的插件仓库添加 [`dsh-plugin`](https://github.com/topics/dsh-plugin) 话题，便于被发现。
-- 欢迎加入 DeepSeek Harness 企微群：扫码添加企微小助手并填写入群问卷，完成后小助手会邀请你入群。
+在 Windows PowerShell 中，使用：
 
-<table>
-  <thead>
-    <tr>
-      <th align="center">企微小助手</th>
-      <th align="center">入群问卷</th>
-      <th align="center">微信公众号</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="center"><img src="https://cdn.deepseek.com/harness/readme/community-wecom-assistant.png" alt="DeepSeek Harness 企微小助手二维码" width="180" height="180"></td>
-      <td align="center"><a href="https://trtgsjkv6r.feishu.cn/share/base/form/shrcnIt5twSVdLGD52KJBckGCgg"><img src="https://cdn.deepseek.com/harness/readme/community-wecom-survey.png" alt="DeepSeek Harness 入群问卷二维码" width="180" height="180"></a></td>
-      <td align="center"><img src="https://cdn.deepseek.com/harness/readme/community-wechat-official-account.png" alt="DeepSeek Harness 团队微信公众号二维码" width="180" height="180"></td>
-    </tr>
-  </tbody>
-</table>
+```powershell
+Copy-Item .env.example .env
+```
 
-## 参与贡献
+在 `.env` 中填写你的个人密钥：
 
-参见 [CONTRIBUTING.md](CONTRIBUTING.zh.md)。
+```dotenv
+DEEPSEEK_API_KEY=
+```
 
-## 开发
+官方 DeepSeek 部署只需此密钥；启动脚本会通过 Harness 配置加载 `.env`。
 
-请先阅读[开发指南](docs/development.zh.md)与[架构文档](docs/architecture.zh.md)。
+### 3. 启动 DeepSeek Harness
 
-面向 agent：请遵循 [AGENTS.md](AGENTS.md)。
+从仓库根目录运行对应脚本：
+
+```sh
+./deployment/run-web.sh
+```
+
+```powershell
+.\deployment\run-web.ps1
+```
+
+服务监听 `127.0.0.1:3080`，并输出带 token 的 URL。若要运行一次无界面任务，请向对应的 `run-headless` 脚本传入任务文本。
+
+```sh
+./deployment/run-headless.sh "summarize this workspace"
+```
+
+```powershell
+.\deployment\run-headless.ps1 "summarize this workspace"
+```
+
+## 配置 API Provider
+
+请将密钥保存在 `.env` 或继承的环境变量中。仓库忽略 `.env` 和 `.dsh/`，因此凭据和会话都不应进入 Git。
+
+### 官方 DeepSeek API
+
+按上述方式在 `.env` 设置 `DEEPSEEK_API_KEY`。如果 DeepSeek 兼容部署使用其他端点，可以设置 `DEEPSEEK_BASE_URL`。
+
+### OpenAI 兼容网关
+
+将 [`deployment/settings.yaml.example`](deployment/settings.yaml.example) 复制为 `.dsh/settings.yaml`，然后填写网关 route id、`baseURL`、模型 id，以及保存其密钥的环境变量名。
+
+```sh
+mkdir -p .dsh
+cp deployment/settings.yaml.example .dsh/settings.yaml
+```
+
+在 `.env` 中设置该变量名对应的密钥，启动 Web UI 后选择配置的 route 再发送请求。网关除 API Key 外还需要端点和模型 id，因为这些值取决于 provider。
+
+## 创建自定义插件
+
+hello 插件是开发态 overlay：传入 patch 文件时，DeepSeek Harness 会从本检出直接加载它的 TypeScript 源码。
+
+### 复制并修改模板
+
+将 `plugins/hello-dsh-plugin` 复制到如 `plugins/my-plugin` 的目录。在 `src/index.ts` 中修改导出的插件名称，并通过 `ctx.tools.register(defineTool(...))` 注册你的工具。
+
+在复制后的 `cordis.yml` 中，让源码路径保持相对于 patch 文件：
+
+```yaml
+- insert:
+    - id: my-plugin
+      name: './src/index.ts'
+```
+
+相对路径可让插件在源码检出迁移到另一台机器后继续有效。
+
+### 加载并验证插件
+
+使用 overlay 运行 Web profile：
+
+```sh
+pnpm dsh web --patch ./plugins/my-plugin/cordis.yml --no-open
+```
+
+无需联系模型 provider 即可检查配置加载：
+
+```sh
+pnpm dsh --profile web --patch ./plugins/my-plugin/cordis.yml --dump-config
+```
+
+overlay 成功挂载后，输出会列出 `my-plugin`。仓库提供的 hello 模板注册 `greet` 工具，可作为实现参考。
+
+## 在远程服务器运行
+
+Web 服务仅绑定 loopback。请使用 SSH 转发，而不要将 3080 端口直接暴露到公网：
+
+```sh
+ssh -N -L 3080:127.0.0.1:3080 user@server
+```
+
+远程服务启动后，在本机打开带 token 的 URL。
+
+## 延伸阅读
+
+- [可迁移部署](DEPLOYMENT.md) 更详细说明网关字段、状态目录和远程访问。
+- [项目架构](docs/architecture.zh.md) 解释插件化 Harness 的设计。
+- [安全说明](SAFETY.zh.md) 介绍 agent 使用文件系统和 shell 权限时的风险。
 
 ## 许可证
 
 [MIT](LICENSE)
-
-第三方依赖及其许可证见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
