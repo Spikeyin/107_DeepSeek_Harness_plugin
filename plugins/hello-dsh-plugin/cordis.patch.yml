@@ -1,0 +1,4 @@
+# Bundle layer: applied when a profile lists the dsh-hello-plugin bundle.
+- insert:
+    - id: hello-dsh-plugin
+      name: dsh-hello-plugin

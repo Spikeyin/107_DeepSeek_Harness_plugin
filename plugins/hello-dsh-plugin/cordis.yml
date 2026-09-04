@@ -1,0 +1,5 @@
+# Development overlay: loads the TypeScript source directly from this checkout.
+# Start the Web UI with: pnpm dsh web --patch ./plugins/hello-dsh-plugin/cordis.yml
+- insert:
+    - id: hello-dsh-plugin
+      name: './src/index.ts'

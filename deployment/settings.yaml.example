@@ -1,0 +1,15 @@
+# Copy to <DSH_HOME>/settings.yaml only when using an OpenAI-compatible gateway.
+# Replace the route id, base URL, model id, and credential environment-variable name.
+llm-pi-ai:
+  providers:
+    example-gateway:
+      displayName: Example Gateway
+      apiKeyEnv: GATEWAY_API_KEY
+      api: openai-completions
+      baseURL: https://gateway.example/v1
+      compat:
+        supportsDeveloperRole: false
+        maxTokensField: max_tokens
+      models:
+        - id: replace-with-your-model
+          name: Replace with your model
