@@ -1,0 +1,8 @@
+version: 1
+scenario: dongfeng-slurm
+profile: headless
+composition: dongfeng-slurm
+recording: authored
+header:
+  class: dongfeng-slurm
+  pin: true

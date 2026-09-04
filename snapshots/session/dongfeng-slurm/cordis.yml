@@ -1,0 +1,21 @@
+# Replace the shipped subprocess provider with deterministic Slurm responses,
+# then load the real source overlay through the shipped Loader entry path.
+- id: subprocess
+  name: '@deepseek-ai/dsh-subprocess-local'
+  disabled: true
+
+- insert:
+    - id: subprocess-fixture
+      name: './fake-slurm.ts'
+    - id: dongfeng-slurm
+      name: '../../../plugins/dongfeng-slurm/src/index.ts'
+      config:
+        workRoot: !!js (process.env.USER ??= 'snapshot-user', process.env.UID ??= '1000', process.cwd())
+        defaultPartition: Students
+        defaultQos: qos_stu_default
+        commandTimeoutMs: 15000
+        logMaxBytes: 65536
+        listMaxItems: 100
+        cancelRequiresApproval: true
+        rawOutputMaxBytes: 1048576
+        graceMs: 3000

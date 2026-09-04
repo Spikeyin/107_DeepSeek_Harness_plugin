@@ -11,5 +11,5 @@ if ([string]::IsNullOrWhiteSpace($env:DSH_HOME)) {
   $env:DSH_HOME = Join-Path $repositoryDirectory '.dsh'
 }
 
-& pnpm dsh --profile headless --patch (Join-Path $repositoryDirectory 'plugins/hello-dsh-plugin/cordis.yml') @TaskArguments
+& pnpm dsh --profile headless --patch (Join-Path $repositoryDirectory 'plugins/dongfeng-slurm/cordis.yml') @TaskArguments
 exit $LASTEXITCODE

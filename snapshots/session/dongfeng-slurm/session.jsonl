@@ -1,0 +1,61 @@
+{"type":"session","version":0,"id":"{{session:1}}","createdAt":0,"cwd":"{{cwd}}","delegationDepth":0}
+{"type":"permission/preset","data":{"preset":"danger-full-access"}}
+{"type":"sandbox/mode","data":{"mode":"danger-full-access"}}
+{"type":"approval/policy","data":{"policy":"never"}}
+{"type":"agent/inbox/spliced","data":{"target":"next-turn","start":0,"inserted":[{"content":[{"type":"text","text":"Discover my Slurm resources, submit job.sbatch, inspect job 321, read its stdout, then reply DONE."}],"source":{"kind":"user"},"role":"user","id":"{{message:1}}"}]}}
+{"type":"turn/start","data":{"turn":1}}
+{"type":"agent/inbox/spliced","data":{"target":"next-turn","start":0,"removedCount":1,"inserted":[]}}
+{"type":"step/start","data":{"turn":1,"step":1}}
+{"type":"user/message","data":{"content":[{"type":"text","text":"Discover my Slurm resources, submit job.sbatch, inspect job 321, read its stdout, then reply DONE."}],"source":{"kind":"user"},"role":"user","id":"{{message:1}}"},"surfaceOp":"append"}
+{"type":"user/message","data":{"content":[{"type":"text","text":"Current runtime context. This snapshot supersedes earlier runtime-context snapshots.\n\nCurrent DSH file policy: danger-full-access. The DSH file sandbox does not restrict file modifications by available operations.\n\nApproval prompts are disabled in this session: actions that require approval are rejected automatically — do not request sandbox escalation (do not set `sandbox_permissions`)."}],"source":{"kind":"plugin","plugin":"@deepseek-ai/dsh-system-prompt","form":"snapshot","sections":[{"name":"sandbox:policy","text":"Current DSH file policy: danger-full-access. The DSH file sandbox does not restrict file modifications by available operations."},{"name":"approval:policy","text":"Approval prompts are disabled in this session: actions that require approval are rejected automatically — do not request sandbox escalation (do not set `sandbox_permissions`)."}]},"role":"user","id":"{{message:2}}"},"surfaceOp":"append"}
+{"type":"session/title","data":{"title":"Discover my Slurm resources, submit","messageSeqs":[7],"source":{"kind":"fallback"}}}
+{"type":"request/header","data":{"header":{"config":{"provider":"deepseek-official","model":"deepseek-v4-flash"},"system":"{{system}}","tools":"{{tools}}"},"reason":"initial"}}
+{"type":"request/context","data":{"provider":"deepseek-official","model":"deepseek-v4-flash"}}
+{"type":"assistant/chunk","data":{"turn":1,"step":1,"chunk":{"type":"block-start","index":0,"blockType":"tool-call"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":1,"chunk":{"type":"tool-call-delta","index":0,"id":"call_resources","name":"slurm_resources","argumentsDelta":"{}"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":1,"chunk":{"type":"block-end","index":0,"block":{"type":"tool-call","id":"call_resources","name":"slurm_resources","arguments":"{}"}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":1,"chunk":{"type":"usage","usage":{"inputTokens":10,"outputTokens":5}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":1,"chunk":{"type":"finish","reason":{"kind":"tool-calls"}}}}
+{"type":"assistant/message","data":{"turn":1,"step":1,"message":{"role":"assistant","content":[{"type":"tool-call","id":"call_resources","name":"slurm_resources","arguments":"{}"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"{{message:3}}"},"usage":{"inputTokens":10,"outputTokens":5}},"sourceEventSeqs":[[12,16]],"surfaceOp":"append"}
+{"type":"tool/call","data":{"turn":1,"step":1,"callId":"call_resources","name":"slurm_resources","arguments":"{}"}}
+{"type":"tool/result","data":{"turn":1,"step":1,"message":{"source":{"kind":"tool","callId":"call_resources"},"content":[{"type":"tool-result","toolCallId":"call_resources","content":[{"type":"text","text":"{\n  \"user\": \"snapshot-user\",\n  \"defaultPartition\": \"Students\",\n  \"defaultQos\": \"qos_stu_default\",\n  \"combinations\": [\n    {\n      \"cluster\": \"training\",\n      \"account\": \"competition\",\n      \"partition\": \"Students\",\n      \"qos\": \"qos_stu_default\",\n      \"limits\": {\n        \"cpus\": 4,\n        \"memoryMb\": 16384,\n        \"gpus\": 1,\n        \"timeMinutes\": 240\n      }\n    }\n  ],\n  \"warnings\": []\n}"}],"isError":false}],"role":"user","id":"{{message:4}}"}},"sourceEventSeqs":[18],"surfaceOp":"append"}
+{"type":"step/end","data":{"turn":1,"step":1}}
+{"type":"step/start","data":{"turn":1,"step":2}}
+{"type":"assistant/chunk","data":{"turn":1,"step":2,"chunk":{"type":"block-start","index":0,"blockType":"tool-call"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":2,"chunk":{"type":"tool-call-delta","index":0,"id":"call_submit","name":"slurm_submit","argumentsDelta":"{\"request\":{\"type\":\"script\",\"scriptPath\":\"job.sbatch\"}}"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":2,"chunk":{"type":"block-end","index":0,"block":{"type":"tool-call","id":"call_submit","name":"slurm_submit","arguments":"{\"request\":{\"type\":\"script\",\"scriptPath\":\"job.sbatch\"}}"}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":2,"chunk":{"type":"usage","usage":{"inputTokens":10,"outputTokens":5}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":2,"chunk":{"type":"finish","reason":{"kind":"tool-calls"}}}}
+{"type":"assistant/message","data":{"turn":1,"step":2,"message":{"role":"assistant","content":[{"type":"tool-call","id":"call_submit","name":"slurm_submit","arguments":"{\"request\":{\"type\":\"script\",\"scriptPath\":\"job.sbatch\"}}"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"{{message:5}}"},"usage":{"inputTokens":10,"outputTokens":5}},"sourceEventSeqs":[[22,26]],"surfaceOp":"append"}
+{"type":"tool/call","data":{"turn":1,"step":2,"callId":"call_submit","name":"slurm_submit","arguments":"{\"request\":{\"type\":\"script\",\"scriptPath\":\"job.sbatch\"}}"}}
+{"type":"tool/result","data":{"turn":1,"step":2,"message":{"source":{"kind":"tool","callId":"call_submit"},"content":[{"type":"tool-result","toolCallId":"call_submit","content":[{"type":"text","text":"{\n  \"jobId\": \"321\",\n  \"cluster\": \"training\",\n  \"scriptPath\": \"./job.sbatch\",\n  \"workdir\": \".\"\n}"}],"isError":false}],"role":"user","id":"{{message:6}}"}},"sourceEventSeqs":[28],"surfaceOp":"append"}
+{"type":"step/end","data":{"turn":1,"step":2}}
+{"type":"step/start","data":{"turn":1,"step":3}}
+{"type":"assistant/chunk","data":{"turn":1,"step":3,"chunk":{"type":"block-start","index":0,"blockType":"tool-call"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":3,"chunk":{"type":"tool-call-delta","index":0,"id":"call_job","name":"slurm_get_job","argumentsDelta":"{\"jobId\":\"321\"}"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":3,"chunk":{"type":"block-end","index":0,"block":{"type":"tool-call","id":"call_job","name":"slurm_get_job","arguments":"{\"jobId\":\"321\"}"}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":3,"chunk":{"type":"usage","usage":{"inputTokens":10,"outputTokens":5}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":3,"chunk":{"type":"finish","reason":{"kind":"tool-calls"}}}}
+{"type":"assistant/message","data":{"turn":1,"step":3,"message":{"role":"assistant","content":[{"type":"tool-call","id":"call_job","name":"slurm_get_job","arguments":"{\"jobId\":\"321\"}"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"{{message:7}}"},"usage":{"inputTokens":10,"outputTokens":5}},"sourceEventSeqs":[[32,36]],"surfaceOp":"append"}
+{"type":"tool/call","data":{"turn":1,"step":3,"callId":"call_job","name":"slurm_get_job","arguments":"{\"jobId\":\"321\"}"}}
+{"type":"tool/result","data":{"turn":1,"step":3,"message":{"source":{"kind":"tool","callId":"call_job"},"content":[{"type":"tool-result","toolCallId":"call_job","content":[{"type":"text","text":"{\n  \"jobId\": \"321\",\n  \"name\": \"snapshot-job\",\n  \"state\": \"COMPLETED\",\n  \"partition\": \"Students\",\n  \"qos\": \"qos_stu_default\",\n  \"cpus\": 1,\n  \"nodes\": [],\n  \"exitCode\": \"0:0\",\n  \"stdoutPath\": \"./stdout.log\",\n  \"stderrPath\": \"./stderr.log\",\n  \"user\": \"snapshot-user\",\n  \"uid\": 1000\n}"}],"isError":false}],"role":"user","id":"{{message:8}}"}},"sourceEventSeqs":[38],"surfaceOp":"append"}
+{"type":"step/end","data":{"turn":1,"step":3}}
+{"type":"step/start","data":{"turn":1,"step":4}}
+{"type":"assistant/chunk","data":{"turn":1,"step":4,"chunk":{"type":"block-start","index":0,"blockType":"tool-call"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":4,"chunk":{"type":"tool-call-delta","index":0,"id":"call_logs","name":"slurm_read_logs","argumentsDelta":"{\"jobId\":\"321\",\"stream\":\"stdout\"}"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":4,"chunk":{"type":"block-end","index":0,"block":{"type":"tool-call","id":"call_logs","name":"slurm_read_logs","arguments":"{\"jobId\":\"321\",\"stream\":\"stdout\"}"}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":4,"chunk":{"type":"usage","usage":{"inputTokens":10,"outputTokens":5}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":4,"chunk":{"type":"finish","reason":{"kind":"tool-calls"}}}}
+{"type":"assistant/message","data":{"turn":1,"step":4,"message":{"role":"assistant","content":[{"type":"tool-call","id":"call_logs","name":"slurm_read_logs","arguments":"{\"jobId\":\"321\",\"stream\":\"stdout\"}"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"{{message:9}}"},"usage":{"inputTokens":10,"outputTokens":5}},"sourceEventSeqs":[[42,46]],"surfaceOp":"append"}
+{"type":"tool/call","data":{"turn":1,"step":4,"callId":"call_logs","name":"slurm_read_logs","arguments":"{\"jobId\":\"321\",\"stream\":\"stdout\"}"}}
+{"type":"tool/result","data":{"turn":1,"step":4,"message":{"source":{"kind":"tool","callId":"call_logs"},"content":[{"type":"tool-result","toolCallId":"call_logs","content":[{"type":"text","text":"{\n  \"stdout\": {\n    \"path\": \"./stdout.log\",\n    \"text\": \"dsh-slurm-smoke\\n\",\n    \"exists\": true,\n    \"truncated\": false\n  }\n}"}],"isError":false}],"role":"user","id":"{{message:10}}"}},"sourceEventSeqs":[48],"surfaceOp":"append"}
+{"type":"step/end","data":{"turn":1,"step":4}}
+{"type":"step/start","data":{"turn":1,"step":5}}
+{"type":"assistant/chunk","data":{"turn":1,"step":5,"chunk":{"type":"block-start","index":0,"blockType":"text"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":5,"chunk":{"type":"text-delta","index":0,"text":"DONE"}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":5,"chunk":{"type":"block-end","index":0,"block":{"type":"text","text":"DONE"}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":5,"chunk":{"type":"usage","usage":{"inputTokens":10,"outputTokens":1}}}}
+{"type":"assistant/chunk","data":{"turn":1,"step":5,"chunk":{"type":"finish","reason":{"kind":"stop"}}}}
+{"type":"assistant/message","data":{"turn":1,"step":5,"message":{"role":"assistant","content":[{"type":"text","text":"DONE"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"{{message:11}}"},"usage":{"inputTokens":10,"outputTokens":1}},"sourceEventSeqs":[[52,56]],"surfaceOp":"append"}
+{"type":"step/end","data":{"turn":1,"step":5}}
+{"type":"turn/end","data":{"turn":1,"reason":{"kind":"completed"}}}

@@ -7,4 +7,4 @@ repository_dir="$(cd "$deployment_dir/.." && pwd)"
 : "${DSH_HOME:="$repository_dir/.dsh"}"
 export DSH_HOME
 
-exec pnpm dsh web --patch "$repository_dir/plugins/hello-dsh-plugin/cordis.yml" --no-open "$@"
+exec pnpm dsh web --patch "$repository_dir/plugins/dongfeng-slurm/cordis.yml" --no-open "$@"

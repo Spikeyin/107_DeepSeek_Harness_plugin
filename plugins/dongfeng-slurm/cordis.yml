@@ -1,0 +1,15 @@
+# Per-user Dongfeng Cloud overlay. Slurm authorization comes from the account
+# running Harness; this file never carries SSH, MFA, platform, or model secrets.
+- insert:
+    - id: dongfeng-slurm
+      name: './src/index.ts'
+      config:
+        workRoot: !!js process.env.DSH_SLURM_WORK_ROOT ?? process.getBuiltinModule('node:path').join(process.getBuiltinModule('node:os').homedir(), 'projects')
+        defaultPartition: !!js process.env.DSH_SLURM_DEFAULT_PARTITION ?? 'Students'
+        defaultQos: !!js process.env.DSH_SLURM_DEFAULT_QOS ?? 'qos_stu_default'
+        commandTimeoutMs: !!js Number(process.env.DSH_SLURM_COMMAND_TIMEOUT_MS ?? 15000)
+        logMaxBytes: !!js Number(process.env.DSH_SLURM_LOG_MAX_BYTES ?? 65536)
+        listMaxItems: !!js Number(process.env.DSH_SLURM_LIST_MAX_ITEMS ?? 100)
+        cancelRequiresApproval: !!js process.env.DSH_SLURM_CANCEL_REQUIRES_APPROVAL !== 'false'
+        rawOutputMaxBytes: !!js Number(process.env.DSH_SLURM_RAW_OUTPUT_MAX_BYTES ?? 1048576)
+        graceMs: !!js Number(process.env.DSH_SLURM_GRACE_MS ?? 3000)
